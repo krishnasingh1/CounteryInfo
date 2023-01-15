@@ -16,11 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.counteryinfo.domail.model.Country
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun CountryListScreen(viewModel: CountryListViewModel = hiltViewModel()) {
+fun CountryListScreen(navController: NavController,viewModel: CountryListViewModel = hiltViewModel()) {
 
     val res = viewModel.list.value
 
@@ -42,7 +43,7 @@ fun CountryListScreen(viewModel: CountryListViewModel = hiltViewModel()) {
             LazyColumn {
                 items(it) {
                     CountryListItem(country = it) {
-
+                        navController.navigate("country_details/${it}")
                     }
 
                 }
@@ -71,10 +72,3 @@ fun CountryListItem( country: Country, onClick : (String) -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Column {
-        CountryListScreen()
-    }
-}

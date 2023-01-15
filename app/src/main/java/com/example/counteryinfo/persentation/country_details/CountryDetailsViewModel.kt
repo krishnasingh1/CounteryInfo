@@ -22,6 +22,12 @@ class CountryDetailsViewModel @Inject constructor(
         private val _countryDetails = mutableStateOf(CountryDetailsState())
         val countryDetails : State<CountryDetailsState> = _countryDetails
 
+        init {
+            savedStateHandle.getLiveData<String>("country_name").value?.let {
+                getCountryDetails(it)
+            }
+        }
+
         fun getCountryDetails(countryName : String) {
             getCountryDetailsUseCase(countryName = countryName).onEach {
 
